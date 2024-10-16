@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <title>Practicar LS</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+
+    <!-- CSS principal -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
+    <!-- CSS del scrollbar personalizado -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/jquery.mCustomScrollbar.min.css') }}">
+</head>
+
+<body>
+    <!-- Barra Lateral -->
+    <section class="full-box cover dashboard-sideBar">
+        <div class="full-box dashboard-sideBar-bg btn-menu-dashboard"></div>
+        <div class="full-box dashboard-sideBar-ct">
+            <!-- Título de la Barra Lateral -->
+            <div class="full-box text-uppercase text-center text-titles dashboard-sideBar-title">
+                Lenguaje de Señas <i class="zmdi zmdi-close btn-menu-dashboard visible-xs"></i>
+            </div>
+            <!-- Información del Usuario -->
+            <div class="full-box dashboard-sideBar-UserInfo">
+                <figure class="full-box">
+                    <img src="/static/assets/img/avatar.jpg" alt="IconoUsuario">
+                    <figcaption class="text-center text-titles">Practicar</figcaption>
+                </figure>
+                <ul class="full-box list-unstyled text-center">
+                    <li>
+                        <a href="#!">
+                            <i class="zmdi zmdi-settings"></i>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#!" class="btn-exit-system">
+                            <i class="zmdi zmdi-power"></i>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+            <!-- Menú de la Barra Lateral -->
+            <ul class="list-unstyled full-box dashboard-sideBar-Menu">
+                <li>
+					<a href="{{ url_for('home') }}">
+						<i class="zmdi zmdi-view-dashboard zmdi-hc-fw"></i> Tablero
+					</a>
+				</li>
+                <li>
+                    <a href="#!" class="btn-sideBar-SubMenu">
+                        <i class="zmdi zmdi-case zmdi-hc-fw"></i> Administración <i class="zmdi zmdi-caret-down pull-right"></i>
+                    </a>
+                    <ul class="list-unstyled full-box">
+						<li>
+							<a href="{{ url_for('salon') }}"><i class="zmdi zmdi-font zmdi-hc-fw"></i> Subir Archivos</a>
+						</li>
+						<li>
+							<a href="{{ url_for('practicarLS') }}"><i class="zmdi zmdi-font zmdi-hc-fw"></i> Practicar Lenguaje de Señas</a>
+						</li>
+					</ul>
+                </li>
+                <li>
+                    <a href="#!" class="btn-sideBar-SubMenu">
+                        <i class="zmdi zmdi-account-add zmdi-hc-fw"></i> Usuarios <i class="zmdi zmdi-caret-down pull-right"></i>
+                    </a>
+                    <ul class="list-unstyled full-box">
+                        <li>
+                            <a href="{{ url_for('admin') }}"><i class="zmdi zmdi-account zmdi-hc-fw"></i> Admin</a>
+                        </li>
+                        <li>
+                            <a href="{{ url_for('teacher') }}"><i class="zmdi zmdi-male-alt zmdi-hc-fw"></i>Profesor</a>
+                        </li>
+                        <li>
+                            <a href="{{ url_for('student') }}"><i class="zmdi zmdi-face zmdi-hc-fw"></i> Estudiante</a>
+                        </li>                                      
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </section>
+    <!-- Página de contenido-->
+    <section class="full-box dashboard-contentPage">
+        <!-- Barra de Navegación -->
+        <nav class="full-box dashboard-Navbar">
+            <ul class="full-box list-unstyled text-right">
+                <li class="pull-left">
+                    <a href="#!" class="btn-menu-dashboard"><i class="zmdi zmdi-more-vert"></i></a>
+                </li>
+                <li>
+                    <a href="#!" class="btn-Notifications-area">
+                        <i class="zmdi zmdi-notifications-none"></i>
+                        <span class="badge">7</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#!" class="btn-search">
+                        <i class="zmdi zmdi-search"></i>
+                    </a>
+                </li>
+                <li>
+                    <a href="#!" class="btn-modal-help">
+                        <i class="zmdi zmdi-help-outline"></i>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+        <!-- Contenido de la página -->
+        <div class="container-fluid">
+            <div class="page-header">
+                <h1 class="text-titles"><i class="zmdi zmdi-account zmdi-hc-fw"></i> Practicar
+                    <small>Lenguaje de Señas</small>
+                </h1>
+            </div>
+        </div>
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-xs-12">
+                    <ul class="nav nav-tabs" style="margin-bottom: 15px;">
+                        <li class="active"><a href="#new" data-toggle="tab">Video de práctica</a></li>
+                    </ul>
+
+                    <div id="myTabContent" class="tab-content">
+                        <div class="tab-pane fade active in" id="new">
+                            <div class="container-fluid">
+                                <div class="row">
+                                    <div class="col-xs-12 col-md-10 col-md-offset-1">
+                                        <!-- Flex container para colocar la imagen y el video a la par -->
+                                        <div class="row">
+                                            <!-- Columna para la imagen -->
+                                            <div class="col-xs-6 text-center">
+                                                <h3>Lenguaje de Señas</h3>
+                                                <img src="/static/assets/img/lenguajeseñas.jpg"alt="Lenguaje de Señas" style="width:100%; max-width:350px; height:auto;">
+                                            </div>
+                                            <!-- Columna para el video -->
+                                            <div class="col-xs-6 text-center">
+                                                <h2>Detección de Gestos en Vivo</h2>
+                                                <!-- Aquí aparecerá el video en vivo de la cámara -->
+                                                <img id="video" src="{{ url_for('video_feed') }}" alt="Cargando video..." style="width:100%; max-width:300px; height:auto;">
+                                            </div>
+                                        </div>
+
+                                        <div class="text-center" style="margin-top: 15px;">
+                                            <button id="btn-toggle-camera" class="btn btn-primary">Encender Cámara</button>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Archivos JS necesarios -->
+    <script src="{{ url_for('static', filename='js/jquery-3.1.1.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/sweetalert2.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/bootstrap.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/material.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/ripples.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/jquery.mCustomScrollbar.concat.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+
+    <!-- Inicialización de scripts -->
+    <script>
+        // Inicializar Material Design
+        $.material.init();
+
+        // Inicializar scrollbar personalizado
+        $(document).ready(function () {
+            $(".dashboard-sideBar, .dashboard-contentPage").mCustomScrollbar({
+                theme: "minimal-dark"
+            });
+
+            // Controlar el encendido y apagado de la cámara
+            $("#btn-toggle-camera").click(function () {
+                const button = $(this);
+                const video = $("#video");
+
+                $.post("/toggle_camera", function (data) {
+                    if (data.camera_on) {
+                        button.text("Apagar Cámara");
+                        video.attr("src", "{{ url_for('video_feed') }}"); // Encender video
+                        video.attr("alt", "Cargando video...");
+                    } else {
+                        button.text("Encender Cámara");
+                        video.removeAttr("src"); // Eliminar el src del video
+                        video.attr("alt", "Cámara apagada"); // Cambiar el alt cuando la cámara está apagada
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+
+</html>

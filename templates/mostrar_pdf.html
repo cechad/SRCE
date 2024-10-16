@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Mostrar PDFs</title>
+</head>
+<body>
+    <h1>Archivos PDF Subidos</h1>
+    <ul>
+        {% for archivo in archivos %}
+            <li><a href="{{ url_for('static', filename='uploads/' + archivo) }}">{{ archivo }}</a></li>
+        {% endfor %}
+    </ul>
+    <a href="{{ url_for('salon') }}">Volver</a>
+</body>
+</html>

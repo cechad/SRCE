@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <title>Maestro</title>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+        content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+
+    <!-- CSS principal -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
+
+    <!-- CSS del scrollbar personalizado -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/jquery.mCustomScrollbar.min.css') }}">
+</head>
+
+<body>
+    <!-- Barra Lateral -->
+    <section class="full-box cover dashboard-sideBar">
+        <div class="full-box dashboard-sideBar-bg btn-menu-dashboard"></div>
+        <div class="full-box dashboard-sideBar-ct">
+            <!-- Título de la Barra Lateral -->
+            <div class="full-box text-uppercase text-center text-titles dashboard-sideBar-title">
+                Lenguaje de Señas <i class="zmdi zmdi-close btn-menu-dashboard visible-xs"></i>
+            </div>
+            <!-- Información del Usuario en la Barra Lateral -->
+            <div class="full-box dashboard-sideBar-UserInfo">
+                <figure class="full-box">
+                   
+                    <figcaption class="text-center text-titles">Maestro </figcaption>
+                </figure>
+                <ul class="full-box list-unstyled text-center">
+                    <li>
+                        <a href="#!">
+                            <i class="zmdi zmdi-settings"></i>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#!" class="btn-exit-system">
+                            <i class="zmdi zmdi-power"></i>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+            <!-- Menú de la Barra Lateral -->
+            <ul class="list-unstyled full-box dashboard-sideBar-Menu">
+               <li>
+					<a href="{{ url_for('home') }}">
+						<i class="zmdi zmdi-view-dashboard zmdi-hc-fw"></i> Tablero
+					</a>
+				</li>
+                <li>
+                    <a href="#!" class="btn-sideBar-SubMenu">
+                        <i class="zmdi zmdi-case zmdi-hc-fw"></i> Administración <i
+                            class="zmdi zmdi-caret-down pull-right"></i>
+                    </a>
+                    <ul class="list-unstyled full-box">
+						<li>
+							<a href="{{ url_for('salon') }}"><i class="zmdi zmdi-font zmdi-hc-fw"></i> Subir Archivos</a>
+						</li>
+						<li>
+							<a href="{{ url_for('practicarLS') }}"><i class="zmdi zmdi-font zmdi-hc-fw"></i> Practicar Lenguaje de Señas</a>
+						</li>
+					</ul>
+                </li>
+                <li>
+                    <a href="#!" class="btn-sideBar-SubMenu">
+                        <i class="zmdi zmdi-account-add zmdi-hc-fw"></i> Usuarios <i
+                            class="zmdi zmdi-caret-down pull-right"></i>
+                    </a>
+                    <ul class="list-unstyled full-box">
+                        <li>
+                            <a href="{{ url_for('admin') }}"><i class="zmdi zmdi-account zmdi-hc-fw"></i> Admin</a>
+                        </li>
+                        <li>
+                            <a href="{{ url_for('teacher') }}"><i class="zmdi zmdi-male-alt zmdi-hc-fw"></i>
+                                Profesor</a>
+                        </li>
+                        <li>
+                            <a href="{{ url_for('student') }}"><i class="zmdi zmdi-face zmdi-hc-fw"></i> Estudiante</a>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </section>
+
+    <!-- Página de contenido -->
+    <section class="full-box dashboard-contentPage">
+        <!-- Barra de Navegación -->
+        <nav class="full-box dashboard-Navbar">
+            <ul class="full-box list-unstyled text-right">
+                <li class="pull-left">
+                    <a href="#!" class="btn-menu-dashboard"><i class="zmdi zmdi-more-vert"></i></a>
+                </li>
+                <li>
+                    <a href="#!" class="btn-Notifications-area">
+                        <i class="zmdi zmdi-notifications-none"></i>
+                        <span class="badge">7</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#!" class="btn-search">
+                        <i class="zmdi zmdi-search"></i>
+                    </a>
+                </li>
+                <li>
+                    <a href="#!" class="btn-modal-help">
+                        <i class="zmdi zmdi-help-outline"></i>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+
+        <!-- Contenido de la página -->
+        <div class="container-fluid">
+            <div class="page-header">
+                <h1 class="text-titles"><i class="zmdi zmdi-male-alt zmdi-hc-fw"></i> Usuario <small>Maestro</small>
+                </h1>
+            </div>
+
+            <div class="row">
+                <div class="col-xs-12">
+                    <ul class="nav nav-tabs" style="margin-bottom: 15px;">
+                        <li class="active"><a href="#new" data-toggle="tab">Nuevo</a></li>
+                        <li><a href="#list" data-toggle="tab">Lista</a></li>
+                    </ul>
+
+                    <div id="myTabContent" class="tab-content">
+                        <div class="tab-pane fade active in" id="new">
+                            <div class="container-fluid">
+                                <div class="row">
+                                    <div class="col-xs-12 col-md-10 col-md-offset-1">
+                                        <form action="/insertar_profesor" method="post">
+                                            <div class="form-group label-floating">
+                                                <label class="control-label">Nombre</label>
+                                                <input class="form-control" type="text" name="nombre" required>
+                                            </div>
+                                            <div class="form-group label-floating">
+                                                <label class="control-label">Apellido</label>
+                                                <input class="form-control" type="text" name="apellido" required>
+                                            </div>
+                                            <div class="form-group label-floating">
+                                                <label class="control-label">Dirección</label>
+                                                <textarea class="form-control" name="direccion" required></textarea>
+                                            </div>
+                                            <div class="form-group label-floating">
+                                                <label class="control-label">Correo Electrónico</label>
+                                                <input class="form-control" type="email" name="correo" required>
+                                            </div>
+                                            <div class="form-group label-floating">
+                                                <label class="control-label">Teléfono</label>
+                                                <input class="form-control" type="tel" name="telefono" required>
+                                            </div>
+                                            <div class="form-group label-floating">
+                                                <label class="control-label">Especialidad</label>
+                                                <input class="form-control" type="text" name="especialidad" required>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="control-label">Fecha de Nacimiento</label>
+                                                <input class="form-control" type="date" name="fecha_nacimiento"
+                                                    required>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="control-label">Género</label>
+                                                <select class="form-control" name="genero" required>
+                                                    <option value="Masculino">Masculino</option>
+                                                    <option value="Femenino">Femenino</option>
+                                                </select>
+                                            </div>
+                                            <p class="text-center">
+                                                <button type="submit" class="btn btn-info btn-raised btn-sm">
+                                                    <i class="zmdi zmdi-floppy"></i> Guardar
+                                                </button>
+                                            </p>
+                                        </form>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="tab-pane fade" id="list">
+                            <div class="table-responsive">
+                                <table class="table table-hover text-center">
+                                    <thead>
+                                        <tr>
+                                            <th class="text-center">#</th>
+                                            <th class="text-center">Nombre</th>
+                                            <th class="text-center">Apellido</th>
+                                            <th class="text-center">Dirección</th>
+                                            <th class="text-center">Correo Electrónico</th>
+                                            <th class="text-center">Teléfono</th>
+                                            <th class="text-center">Especialidad</th>
+                                            <th class="text-center">Fecha de Nacimiento</th>
+                                            <th class="text-center">Género</th>
+                                            <th class="text-center">Actualizar</th>
+                                            <th class="text-center">Eliminar</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <!-- Aquí puedes agregar los datos de los profesores -->
+                                    </tbody>
+                                </table>
+                                <ul class="pagination pagination-sm">
+                                    <li class="disabled"><a href="#!">«</a></li>
+                                    <li class="active"><a href="#!">1</a></li>
+                                    <li><a href="#!">2</a></li>
+                                    <li><a href="#!">3</a></li>
+                                    <li><a href="#!">»</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </section>
+
+    <!-- Archivos JS necesarios -->
+    <script src="{{ url_for('static', filename='js/jquery-3.1.1.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/sweetalert2.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/bootstrap.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/material.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/ripples.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/jquery.mCustomScrollbar.concat.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+
+    <!-- Inicialización de scripts -->
+    <script>
+        // Inicializar Material Design
+        $.material.init();
+
+        // Inicializar scrollbar personalizado
+        $(document).ready(function () {
+            $(".dashboard-sideBar, .dashboard-contentPage").mCustomScrollbar({
+                theme: "minimal-dark"
+            });
+        });
+    </script>
+</body>
+
+</html>
