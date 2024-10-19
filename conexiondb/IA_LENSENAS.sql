@@ -90,11 +90,9 @@ INSERT INTO InicioDeSesion (UsuarioID, Email, Contraseña) VALUES
 select * from InicioDeSesion
 
 
-select * from Roles
+/*select * from InicioDeSesion*/
 
-
-SELECT us.UsuarioID, us.RolID 
-FROM InicioDeSesion is
-JOIN Usuarios us ON is.UsuarioID = us.UsuarioID 
-WHERE is.Email = ? AND is.Contraseña = ?
-
+/*
+admin@example.com	contraseñaAdmin
+maestro@example.com	contraseñaMaestro
+estudiante@example.com	contraseñaEstudiante*/
