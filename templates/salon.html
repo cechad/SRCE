@@ -36,11 +36,7 @@
             </div>
             <!-- Menú de la Barra Lateral -->
             <ul class="list-unstyled full-box dashboard-sideBar-Menu">
-                <li>
-                    <a href="{{ url_for('home') }}">
-                        <i class="zmdi zmdi-view-dashboard zmdi-hc-fw"></i> Tablero
-                    </a>
-                </li>
+               
                 <li>
                     <a href="#!" class="btn-sideBar-SubMenu">
                         <i class="zmdi zmdi-case zmdi-hc-fw"></i> Administración <i
@@ -55,20 +51,7 @@
                         </li>
                     </ul>
                 </li>
-                <li>
-                    <a href="#!" class="btn-sideBar-SubMenu">
-                        <i class="zmdi zmdi-account-add zmdi-hc-fw"></i> Usuarios <i
-                                class="zmdi zmdi-caret-down pull-right"></i>
-                    </a>
-                    <ul class="list-unstyled full-box">
-                        <li>
-                            <a href="{{ url_for('admin') }}"><i class="zmdi zmdi-account zmdi-hc-fw"></i> Admin</a>
-                        </li>
-                        <li>
-                            <a href="{{ url_for('teacher') }}"><i class="zmdi zmdi-male-alt zmdi-hc-fw"></i> Profesor</a>
-                        </li>
-                    </ul>
-                </li>
+                
             </ul>
         </div>
     </section>
@@ -105,23 +88,7 @@
             </div>  <!-- Cierra la nueva fila -->
         </div>
 
-        <!-- Mostrar archivos subidos -->
-        <div class="container-fluid" style="margin-top: 20px;">
-            <h2 class="text-titles">Archivos Subidos</h2>
-            <div class="row">  <!-- Nueva fila agregada aquí -->
-                <ul class="list-unstyled">
-                    {% if archivos and archivos|length > 0 %}
-                        {% for archivo in archivos %}
-                            <li>
-                                <a href="{{ url_for('static', filename='uploads/' + archivo) }}" target="_blank">{{ archivo }}</a>
-                            </li>
-                        {% endfor %}
-                    {% else %}
-                        <li>No hay archivos subidos.</li>
-                    {% endif %}
-                </ul>
-            </div>  <!-- Cierra la nueva fila -->
-        </div>
+        
     </section>
 
     <!-- Archivos JS necesarios -->

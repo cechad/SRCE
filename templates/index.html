@@ -4,11 +4,17 @@
     <title>LogIn</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-   	<!-- CSS principal -->
-	<link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
+    
+    <!-- CSS principal -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
+    
+    <!-- CSS del scrollbar personalizado -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/jquery.mCustomScrollbar.min.css') }}">
 
-	<!-- CSS del scrollbar personalizado -->
-	<link rel="stylesheet" href="{{ url_for('static', filename='css/jquery.mCustomScrollbar.min.css') }}">
+    <!-- No permitir cacheo de la página -->
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+    <meta http-equiv="Pragma" content="no-cache" />
+    <meta http-equiv="Expires" content="0" />
 </head>
 <body class="cover" style="background-image: url('/static/assets/img/LES.png');">
 
@@ -29,26 +35,48 @@
             <input type="submit" value="Iniciar sesión" class="btn btn-raised btn-danger">
         </div>
     </form>
+
     <!-- Archivos JS necesarios -->
-	<script src="{{ url_for('static', filename='js/jquery-3.1.1.min.js') }}"></script>
-	<script src="{{ url_for('static', filename='js/sweetalert2.min.js') }}"></script>
-	<script src="{{ url_for('static', filename='js/bootstrap.min.js') }}"></script>
-	<script src="{{ url_for('static', filename='js/material.min.js') }}"></script>
-	<script src="{{ url_for('static', filename='js/ripples.min.js') }}"></script>
-	<script src="{{ url_for('static', filename='js/jquery.mCustomScrollbar.concat.min.js') }}"></script>
-	<script src="{{ url_for('static', filename='js/main.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/jquery-3.1.1.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/sweetalert2.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/bootstrap.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/material.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/ripples.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/jquery.mCustomScrollbar.concat.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
 
-	<!-- Inicialización de scripts -->
-	<script>
-		// Inicializar Material Design
-		$.material.init();
+    <!-- Inicialización de scripts -->
+    <script>
+        // Inicializar Material Design
+        $.material.init();
 
-		// Inicializar scrollbar personalizado
-		$(document).ready(function () {
-			$(".dashboard-sideBar, .dashboard-contentPage").mCustomScrollbar({
-				theme: "minimal-dark"
-			});
-		});
-	</script>
+        // Inicializar scrollbar personalizado
+        $(document).ready(function () {
+            $(".dashboard-sideBar, .dashboard-contentPage").mCustomScrollbar({
+                theme: "minimal-dark"
+            });
+        });
+
+        // Manejo de la sesión: prevenir retroceso y recarga de páginas protegidas después de cerrar sesión
+        (function() {
+            // Asume que sessionActive es un valor booleano controlado por el servidor
+            var sessionActive = {{ 'true' if session.get('user_id') else 'false' }};
+
+            // Prevenir retroceso en el historial si la sesión ha expirado o el usuario ha cerrado sesión
+            window.onpopstate = function(event) {
+                if (!sessionActive) {
+                    window.location.href = "{{ url_for('login') }}"; // Redirigir al login si no hay sesión
+                }
+            };
+
+            // Prevenir recarga de la página si la sesión está cerrada
+            window.onbeforeunload = function() {
+                if (!sessionActive) {
+                    window.location.href = "{{ url_for('login') }}";
+                }
+            };
+
+        })();
+    </script>
 </body>
 </html>

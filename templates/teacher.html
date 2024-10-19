@@ -44,11 +44,7 @@
             </div>
             <!-- Menú de la Barra Lateral -->
             <ul class="list-unstyled full-box dashboard-sideBar-Menu">
-               <li>
-					<a href="{{ url_for('home') }}">
-						<i class="zmdi zmdi-view-dashboard zmdi-hc-fw"></i> Tablero
-					</a>
-				</li>
+             
                 <li>
                     <a href="#!" class="btn-sideBar-SubMenu">
                         <i class="zmdi zmdi-case zmdi-hc-fw"></i> Administración <i
@@ -63,24 +59,7 @@
 						</li>
 					</ul>
                 </li>
-                <li>
-                    <a href="#!" class="btn-sideBar-SubMenu">
-                        <i class="zmdi zmdi-account-add zmdi-hc-fw"></i> Usuarios <i
-                            class="zmdi zmdi-caret-down pull-right"></i>
-                    </a>
-                    <ul class="list-unstyled full-box">
-                        <li>
-                            <a href="{{ url_for('admin') }}"><i class="zmdi zmdi-account zmdi-hc-fw"></i> Admin</a>
-                        </li>
-                        <li>
-                            <a href="{{ url_for('teacher') }}"><i class="zmdi zmdi-male-alt zmdi-hc-fw"></i>
-                                Profesor</a>
-                        </li>
-                        <li>
-                            <a href="{{ url_for('student') }}"><i class="zmdi zmdi-face zmdi-hc-fw"></i> Estudiante</a>
-                        </li>
-                    </ul>
-                </li>
+                
             </ul>
         </div>
     </section>

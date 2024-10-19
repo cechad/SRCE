@@ -234,6 +234,42 @@ def ver_pdf(archivo):
     ruta_archivo = os.path.join(app.config['UPLOAD_FOLDER'], archivo)
     return send_file(ruta_archivo, as_attachment=False)
 
+
+@app.route('/eliminar_pdf/<archivo>', methods=['POST'])
+def eliminar_pdf(archivo):
+    try:
+        # Eliminar el archivo de la carpeta de subidas
+        ruta_archivo = os.path.join(app.config['UPLOAD_FOLDER'], archivo)
+        if os.path.exists(ruta_archivo):
+            os.remove(ruta_archivo)
+
+        # Eliminar el archivo de la base de datos
+        conexion = pyodbc.connect(conexion_string)
+        cursor = conexion.cursor()
+        cursor.execute("""
+            DELETE FROM Archivos 
+            WHERE NombreArchivo = ?
+        """, (archivo,))
+
+        conexion.commit()  # Confirmar la transacción
+        flash('Archivo eliminado correctamente.')
+    except Exception as e:
+        print(f"Error al eliminar el archivo: {e}")
+        flash('Error al eliminar el archivo.')
+    finally:
+        if cursor:
+            cursor.close()
+        if conexion:
+            conexion.close()
+
+    return redirect(url_for('mostrar_pdf'))
+
+@app.after_request
+def add_header(response):
+    response.headers['Cache-Control'] = 'no-store, no-cache, must-revalidate, post-check=0, pre-check=0, max-age=0'
+    response.headers['Pragma'] = 'no-cache'
+    response.headers['Expires'] = '0'
+    return response
 # Rutas de roles y páginas específicas
 @app.route('/admin')
 def admin():
@@ -244,21 +280,21 @@ def admin():
 
 @app.route('/teacher')
 def teacher():
-    if 'rol_id' in session and session['rol_id'] == 2:
+    if 'rol_id' in session and session['rol_id'] in [1,2, 3]: 
         return render_template('teacher.html')
     else:
         return redirect(url_for('teacher'))
 
 @app.route('/student')
 def student():
-    if 'rol_id' in session and session['rol_id'] == 3:
+    if 'rol_id' in session and session['rol_id'] in [1,2, 3]: 
         return render_template('student.html')
     else:
         return redirect(url_for('student'))
 
 @app.route('/practicarLS')
 def practicarLS():
-    if 'rol_id' in session and session['rol_id'] in [2, 3]:  # Maestro o Estudiante
+    if 'rol_id' in session and session['rol_id'] in [1,2, 3]: 
         return render_template('practicarLS.html')
     else:
         return redirect(url_for('practicarLS'))
@@ -269,7 +305,7 @@ def home():
 
 @app.route('/salon')
 def salon():
-    if 'rol_id' in session and session['rol_id'] == 2:  # Solo para Maestros
+    if 'rol_id' in session and session['rol_id'] in [1,2, 3]: 
         return render_template('salon.html')
     else:
         return redirect(url_for('salon'))
